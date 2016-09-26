@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sam Lee - Animation</title>
+        <link rel="icon" type="image/png" href="logo.png" sizes="32x32"/>
+		<link rel="shortcut icon" type="image/x-icon" href="logo.ico"/>
+        <style type="text/css">
+            canvas {
+                margin: auto;
+                position: absolute;
+
+                top: 0%;
+                bottom: 0%;
+                right: 0%;
+                left: 0%;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="animation"></canvas>
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+        <script type="text/javascript">
+window.onload = function(){
+ 
+    var WIDTH = 1000;
+    var HEIGHT = 550;
+    
+    var go = false;
+    
+    var done = false;
+    
+    var canvas, ctx;
+    
+    var animate = function(){
+        if(go){
+            name.update();
+            
+            for(var square in squares){
+                squares[square].update();   
+            }
+        }
+    }
+    
+    var name = {
+        x: null,
+        y: null,
+        alpha_1: 0,
+        alpha_2: 0,
+        alpha_3: 0,
+        alpha_4: 0,
+        alpha_5: 0,
+        alpha_6: 0,
+        
+        draw: function(){
+            this.color_1 = "rgba(50, 50, 50, " + this.alpha_1 + ")";
+            this.color_2 = "rgba(50, 50, 50, " + this.alpha_2 + ")";
+            this.color_3 = "rgba(50, 50, 50, " + this.alpha_3 + ")";
+            this.color_4 = "rgba(50, 50, 50, " + this.alpha_4 + ")";
+            this.color_5 = "rgba(50, 50, 50, " + this.alpha_5 + ")";
+            this.color_6 = "rgba(50, 50, 50, " + this.alpha_6 + ")";
+            
+            ctx.fillStyle = this.color_1;
+            ctx.font = "bold 75pt Monospace";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("S", (this.x - 200), this.y);
+            
+            ctx.fillStyle = this.color_2;
+            ctx.fillText("A", (this.x - 125), this.y);
+            
+            ctx.fillStyle = this.color_3;
+            ctx.fillText("M", (this.x - 50), this.y);
+            
+            ctx.fillText(" ", this.x, this.y);
+            
+            ctx.fillStyle = this.color_4;
+            ctx.fillText("L", (this.x + 50), this.y);
+            
+            ctx.fillStyle = this.color_5;
+            ctx.fillText("E", (this.x + 125), this.y);
+            
+            ctx.fillStyle = this.color_6;
+            ctx.fillText("E", (this.x + 200), this.y);
+        },
+        
+        update: function(){
+            this.alpha_1 += 0.015;
+            if(this.alpha_1 > 0.29){
+                this.alpha_2 += 0.015;
+            }
+            if(this.alpha_2 > 0.29){
+                this.alpha_3 += 0.015;
+            }
+            if(this.alpha_3 > 0.29){
+                this.alpha_4 += 0.015;
+            }
+            if(this.alpha_4 > 0.29){
+                square1.go = true;
+                this.alpha_5 += 0.015;
+            }
+            if(this.alpha_5 > 0.29){
+                this.alpha_6 += 0.015;
+            }
+        }
+    }
+    
+    var squares = [];
+    
+    var square1 = {
+        x: null,
+        y: null,
+        width: 48,
+        height: 48,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.x += this.vel;
+                this.vel *= 0.96;
+            }
+            if(this.alpha > 0.25){
+                square2.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(113, 212, 80, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square1);
+    
+    var square2 = {
+        x: null,
+        y: null,
+        width: 32,
+        height: 32,
+        go: false,
+        alpha: 0,
+        vel: 5,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y -= this.vel;
+                this.vel *= 0.97;
+            }
+            if(this.alpha > 0.23){
+                square3.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(107, 215, 244, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square2);
+    
+    var square3 = {
+        x: null,
+        y: null,
+        width: 55,
+        height: 55,
+        go: false,
+        alpha: 0,
+        vel: 3.5,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y += this.vel;
+                this.vel *= 0.97;
+            }
+            if(this.alpha > 0.19){
+                square4.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(242, 134, 107, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square3);
+    
+    var square4 = {
+        x: null,
+        y: null,
+        width: 40,
+        height: 40,
+        go: false,
+        alpha: 0,
+        vel: 4.45,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y += this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.17){
+                square5.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(240, 181, 72, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square4);
+    
+    var square5 = {
+        x: null,
+        y: null,
+        width: 38,
+        height: 38,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.x -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.15){
+                square6.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(87, 142, 242, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square5);
+    
+    var square6 = {
+        x: null,
+        y: null,
+        width: 25,
+        height: 25,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.13){
+                square7.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(175, 242, 87, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square6);
+
+    var square7 = {
+        x: null,
+        y: null,
+        width: 22,
+        height: 22,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.x += this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.12){
+                square8.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(255, 255, 69, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square7);
+   
+    var square8 = {
+        x: null,
+        y: null,
+        width: 28,
+        height: 28,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y += this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.11){
+                square9.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(87, 142, 242, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square8);
+    
+    var square9 = {
+        x: null,
+        y: null,
+        width: 24,
+        height: 24,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.x -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.09){
+                square10.go = true
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(119, 242, 185, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square9);
+    
+    var square10 = {
+        x: null,
+        y: null,
+        width: 23,
+        height: 23,
+        go: false,
+        alpha: 0,
+        vel: 6,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.07){
+                square11.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(242, 119, 131, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square10);
+    
+    var square11 = {
+        x: null,
+        y: null,
+        width: 20,
+        height: 20,
+        go: false,
+        alpha: 0,
+        vel: 8.5,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.x += this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.05){
+                square12.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(213, 170, 227, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square11);
+    
+    var square12 = {
+        x: null,
+        y: null,
+        width: 19,
+        height: 19,
+        go: false,
+        alpha: 0,
+        vel: 4,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.03){
+                square13.go = true
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(170, 214, 227, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square12);
+    
+    var square13 = {
+        x: null,
+        y: null,
+        width: 18,
+        height: 18,
+        go: false,
+        alpha: 0,
+        vel: 3,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.01){
+                square14.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(136, 232, 125, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square13);
+    
+    var square14 = {
+        x: null,
+        y: null,
+        width: 17,
+        height: 17,
+        go: false,
+        alpha: 0,
+        vel: 4,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.x -= this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0){
+                square15.go = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(237, 214, 81, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square14);
+    
+    var square15 = {
+        x: null,
+        y: null,
+        width: 16,
+        height: 16,
+        go: false,
+        alpha: 0,
+        vel: 3,
+        
+        update: function(){
+            if(this.go){
+                this.alpha += 0.01;
+                this.y += this.vel;
+                this.vel *= 0.955;
+            }
+            if(this.alpha > 0.8){
+                //continue cycle here if desired
+                done = true;
+            }
+        },
+        
+        draw: function(){
+            ctx.strokeStyle = "rgba(224, 103, 103, " + this.alpha + ")";
+            ctx.lineWidth = 14;
+            ctx.lineJoin = "bevel";
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    squares.push(square15);
+    
+    function main(){
+        canvas = document.getElementById('animation');
+        ctx = canvas.getContext('2d');
+        
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+
+        canvas.style.width = "73.20644216691069%"
+        
+        var delay = window.setInterval(function(){
+            go = true;
+            window.clearInterval(delay);
+        }, 1000);
+        
+        init();
+        
+        var loop = function(){
+            update();
+            draw();
+            
+            window.requestAnimationFrame(loop, canvas);
+        }
+        
+        window.requestAnimationFrame(loop, canvas);
+    }
+    
+    function init(){
+        name.x = WIDTH/2;
+        name.y = HEIGHT/2;
+        
+        square1.x = 10;
+        square1.y = HEIGHT/2 - (square1.height/2);
+        square2.x = WIDTH/2.25;
+        square2.y = HEIGHT - (square2.height);
+        square3.x = WIDTH/1.5;
+        square3.y = 0;
+        square4.x = 400;
+        square4.y = 0;
+        square5.x = WIDTH-(square5.width);
+        square5.y = HEIGHT/2;
+        square6.x = WIDTH/3;
+        square6.y = HEIGHT - (square6.height);
+        square7.x = 10;
+        square7.y = 175;
+        square8.x = WIDTH/2;
+        square8.y = 0;
+        square9.x = WIDTH-(square6.width);
+        square9.y = 200;
+        square10.x = WIDTH/1.35;
+        square10.y = HEIGHT - (square10.height);
+        square11.x = 10;
+        square11.y = 100;
+        square12.x = 250;
+        square12.y = HEIGHT - (square12.height);
+        square13.x = WIDTH-500;
+        square13.y = HEIGHT - (square13.height);
+        square14.x = WIDTH-(square14.width);
+        square14.y = HEIGHT/4;
+        square15.x = (WIDTH/2)+75;
+        square15.y = 0;
+    }
+    
+    function update(){
+        animate();
+        
+        if(done){
+            $('canvas').fadeOut(2500);
+            done = false;
+        }
+    }
+    
+    function draw(){
+        ctx.fillStyle = "#FFF";
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        
+        ctx.save();
+        
+        name.draw();
+        
+        for(var square in squares){
+            squares[square].draw();   
+        }
+        
+        ctx.restore();
+    }
+    
+    main();
+    
+}
+        </script>
+    </body>
+</html>
